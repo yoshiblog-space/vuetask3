@@ -19,7 +19,7 @@
         <tr  v-for="todo in todoList" v-bind:key="todo.todoId">
           <td>{{ todo.todoId }}</td>
           <td>{{ todo.todoComment }}</td>
-          <td><button type="button">作業中</button></td>
+          <td><button type="button">{{ todo.todoState }}</button></td>
           <td><button type="button">削除</button></td>
         </tr>
 
@@ -39,7 +39,8 @@ export default {
     return {
       todoInput: '',
       todoList: [],
-      todoIdCount: 1,
+      todoIdCount: 0,
+      todoStateDefault:'作業中'
     }
   },
   methods:{
@@ -50,14 +51,16 @@ export default {
       this.todoList.push({
         todoId: this.todoIdCount++,
         todoComment: this.todoInput,
-      })
+        todoState:this.todoStateDefault,
+      });
+      this.todoInput = '';
     }
   }
-};
+}
 </script>
 
-  <style>
-    body{
-      font-family:'Times New Roman', Times, serif
-    }
-  </style>
+<style>
+  body{
+    font-family:'Times New Roman', Times, serif
+  }
+</style>
