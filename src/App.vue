@@ -20,7 +20,7 @@
           <td>{{ todo.todoId }}</td>
           <td>{{ todo.todoComment }}</td>
           <td><button type="button">{{ todo.todoState }}</button></td>
-          <td><button type="button">削除</button></td>
+          <td><button type="button" v-on:click="delTodoList(todo.todoId)">削除</button></td>
         </tr>
 
       </tbody>
@@ -54,6 +54,13 @@ export default {
         todoState:this.todoStateDefault,
       });
       this.todoInput = '';
+    },
+    delTodoList: function(delTodoId){
+      this.$delete(this.todoList,delTodoId);
+      for(let i = 0; i < this.todoList.length; i++){
+        this.todoList[i].todoId = i;
+      }
+      this.todoIdCount = this.todoList.length;
     }
   }
 }
