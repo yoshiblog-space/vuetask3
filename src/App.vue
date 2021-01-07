@@ -40,7 +40,7 @@ export default {
       todoInput: '',
       todoList: [],
       todoIdCount: 0,
-      todoStateDefault:'作業中'
+      todoStateDefault: '作業中',
     }
   },
   methods:{
