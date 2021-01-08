@@ -57,9 +57,9 @@ export default {
     },
     delTodoList: function(delTodoId){
       this.$delete(this.todoList,delTodoId);
-      for(let i = 0; i < this.todoList.length; i++){
-        this.todoList[i].todoId = i;
-      }
+      this.todoList.forEach((element,key) => {
+        element.todoId = key;
+      });
       this.todoIdCount = this.todoList.length;
     }
   }
