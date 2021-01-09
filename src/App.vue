@@ -20,7 +20,7 @@
           <td>{{ todo.todoId }}</td>
           <td>{{ todo.todoComment }}</td>
           <td><button type="button">{{ todo.todoState }}</button></td>
-          <td><button type="button">削除</button></td>
+          <td><button type="button" @click="delTodoList( todo.todoId )">削除</button></td>
         </tr>
 
       </tbody>
@@ -28,7 +28,7 @@
 
     <h2>新規タスクの追加</h2>
     <input v-model="todoInput">
-    <button v-on:click="addTodoList" type="button">追加</button>
+    <button @click="addTodoList" type="button">追加</button>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
   },
   methods:{
     addTodoList: function(){
-      if(!this.todoInput){
+      if( !this.todoInput ){
         return;
       }
       this.todoList.push({
@@ -54,6 +54,13 @@ export default {
         todoState:this.todoStateDefault,
       });
       this.todoInput = '';
+    },
+    delTodoList: function( delTodoId ){
+      this.$delete( this.todoList,delTodoId );
+      this.todoList.forEach(( element,key ) => {
+        element.todoId = key;
+      });
+      this.todoIdCount = this.todoList.length;
     }
   }
 }
