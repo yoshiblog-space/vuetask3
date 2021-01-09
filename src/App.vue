@@ -19,7 +19,7 @@
         <tr  v-for="todo in todoList" v-bind:key="todo.todoId">
           <td>{{ todo.todoId }}</td>
           <td>{{ todo.todoComment }}</td>
-          <td><button type="button">{{ todo.todoState }}</button></td>
+          <td><button type="button"  @click="changeTodoState( todo.todoState, todo.todoId )">{{ todo.todoState }}</button></td>
           <td><button type="button" @click="delTodoList( todo.todoId )">削除</button></td>
         </tr>
 
@@ -61,6 +61,13 @@ export default {
         element.todoId = key;
       });
       this.todoIdCount = this.todoList.length;
+      },
+    changeTodoState: function( todoStatus,todoId ){
+      if( todoStatus === '作業中' ){
+        this.todoList[ todoId ].todoState = '完了';
+      }else{
+        this.todoList[ todoId ].todoState = '作業中';
+      }
     }
   }
 }
