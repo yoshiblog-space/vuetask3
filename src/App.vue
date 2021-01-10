@@ -19,8 +19,8 @@
         <tr  v-for="todo in todoList" v-bind:key="todo.todoId">
           <td>{{ todo.todoId }}</td>
           <td>{{ todo.todoComment }}</td>
-          <td><button type="button"  @click="changeTodoState( todo.todoState, todo.todoId )">{{ todo.todoState }}</button></td>
-          <td><button type="button" @click="delTodoList( todo.todoId )">削除</button></td>
+          <td><button type="button"  @click="changeTodoState(todo.todoState, todo.todoId)">{{ todo.todoState }}</button></td>
+          <td><button type="button" @click="delTodoList(todo.todoId)">削除</button></td>
         </tr>
 
       </tbody>
@@ -45,28 +45,28 @@ export default {
   },
   methods:{
     addTodoList: function(){
-      if( !this.todoInput ){
+      if(!this.todoInput){
         return;
       }
       this.todoList.push({
         todoId: this.todoIdCount++,
         todoComment: this.todoInput,
-        todoState:this.todoStateDefault,
+        todoState: this.todoStateDefault,
       });
       this.todoInput = '';
     },
-    delTodoList: function( delTodoId ){
-      this.$delete( this.todoList,delTodoId );
-      this.todoList.forEach(( element,key ) => {
+    delTodoList: function(delTodoId){
+      this.$delete(this.todoList, delTodoId);
+      this.todoList.forEach((element, key) => {
         element.todoId = key;
       });
       this.todoIdCount = this.todoList.length;
       },
-    changeTodoState: function( todoStatus,todoId ){
-      if( todoStatus === '作業中' ){
-        this.todoList[ todoId ].todoState = '完了';
+    changeTodoState: function(todoStatus, todoId){
+      if(todoStatus === '作業中'){
+        this.todoList[todoId].todoState = '完了';
       }else{
-        this.todoList[ todoId ].todoState = '作業中';
+        this.todoList[todoId].todoState = '作業中';
       }
     }
   }
@@ -75,6 +75,6 @@ export default {
 
 <style>
   body{
-    font-family:'Times New Roman', Times, serif
+    font-family: 'Times New Roman', Times, serif
   }
 </style>
