@@ -2,9 +2,9 @@
   <div id="app">
     <h1>ToDoリスト</h1>
     <div class="status">
-      <input type="radio" name="state" checked="checked">すべて
-      <input type="radio" name="state">作業中
-      <input type="radio" name="state">完了
+      <input type="radio" name="state" v-model="checkDisplayState" value="すべて">すべて
+      <input type="radio" name="state" v-model="checkDisplayState" value="作業中">作業中
+      <input type="radio" name="state" v-model="checkDisplayState" value="完了">完了
     </div>
 
     <table>
@@ -17,12 +17,11 @@
       </thead>
       <tbody>
         <tr  v-for="todo in todoList" v-bind:key="todo.todoId">
-          <td>{{ todo.todoId }}</td>
-          <td>{{ todo.todoComment }}</td>
-          <td><button type="button"  @click="changeTodoState(todo.todoState, todo.todoId)">{{ todo.todoState }}</button></td>
-          <td><button type="button" @click="delTodoList(todo.todoId)">削除</button></td>
+          <td v-if="displayPermit(checkDisplayState, todo.todoState)">{{ todo.todoId }}</td>
+          <td v-if="displayPermit(checkDisplayState, todo.todoState)">{{ todo.todoComment }}</td>
+          <td v-if="displayPermit(checkDisplayState, todo.todoState)"><button type="button"  @click="changeTodoState(todo.todoState, todo.todoId)">{{ todo.todoState }}</button></td>
+          <td v-if="displayPermit(checkDisplayState, todo.todoState)"><button type="button" @click="delTodoList(todo.todoId)">削除</button></td>
         </tr>
-
       </tbody>
     </table>
 
@@ -41,6 +40,7 @@ export default {
       todoList: [],
       todoIdCount: 0,
       todoStateDefault: '作業中',
+      checkDisplayState: 'すべて',
     }
   },
   methods:{
@@ -67,6 +67,13 @@ export default {
         this.todoList[todoId].todoState = '完了';
       }else{
         this.todoList[todoId].todoState = '作業中';
+      }
+    },
+    displayPermit: function(checkDisplayState,todoStatus){
+      if(checkDisplayState === 'すべて' || checkDisplayState === todoStatus){
+        return true;
+      }else{
+        return false;
       }
     }
   }
