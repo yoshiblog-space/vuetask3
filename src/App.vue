@@ -44,7 +44,7 @@ export default {
     }
   },
   methods:{
-    addTodoList: function(){
+    addTodoList(){
       if(!this.todoInput){
         return;
       }
@@ -55,26 +55,22 @@ export default {
       });
       this.todoInput = '';
     },
-    delTodoList: function(delTodoId){
+    delTodoList(delTodoId){
       this.$delete(this.todoList, delTodoId);
       this.todoList.forEach((element, key) => {
         element.todoId = key;
       });
       this.todoIdCount = this.todoList.length;
       },
-    changeTodoState: function(todoStatus, todoId){
+    changeTodoState(todoStatus, todoId){
       if(todoStatus === '作業中'){
         this.todoList[todoId].todoState = '完了';
       }else{
         this.todoList[todoId].todoState = '作業中';
       }
     },
-    displayPermit: function(checkDisplayState,todoStatus){
-      if(checkDisplayState === 'すべて' || checkDisplayState === todoStatus){
-        return true;
-      }else{
-        return false;
-      }
+    displayPermit(checkDisplayState,todoStatus){
+        return (checkDisplayState === 'すべて' || checkDisplayState === todoStatus);
     }
   }
 }
